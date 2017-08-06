@@ -1,5 +1,5 @@
 # 800hi Image Gallery for 3DS
-NOTE: hi stants for horizontal interlacing.
+NOTE: hi stands for horizontal interlacing.
 
 [Inspiration for my idea.](http://gizmodo.com/5914718/researchers-turn-low-res-screens-into-retina-displays-by-simply-vibrating-them)
 
