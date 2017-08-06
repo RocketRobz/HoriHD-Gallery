@@ -73,8 +73,6 @@ int main()
 	int logonum = 0;
 	int imageloaded = false;
 	
-	int looptime = 2;
-		
 	// Loop as long as the status is not exit
 	while(aptMainLoop()) {
 		// Scan hid shared memory for input events
@@ -227,18 +225,22 @@ int main()
 			imageloaded = true;
 		}
 		
-		for (int i = 0; i < looptime; i++) {
-			int s = 0;
-			if (i==1||i==2) s = 1;
-			int f = 0;
-			if (i==1||i==3) f = 1;
-			sf2d_start_frame(GFX_TOP, f);
-			for (int l = 0; l < 240; l++) {
-				sf2d_draw_texture_part(imagetex, 0, l, 0, s+l*2, 400, 1);
+		for (int i = 0; i < 2; i++) {
+			if (CONFIG_3D_SLIDERSTATE != 0) {
+				sf2d_start_frame(GFX_TOP, i);
+			} else {
+				sf2d_start_frame(GFX_TOP, GFX_LEFT);
+			}
+			for (int w = 0; w < 400; w++) {
+				sf2d_draw_texture_part(imagetex, w, 0, i+w*2, 0, 1, 240);
 			}
 			drawRectangle(0, 0, 400, 240, RGBA8(0, 0, 0, fadealpha)); // Fade in/out effect
 			sf2d_end_frame();
-			if (looptime==4 && i==1) sf2d_swapbuffers();
+			if (CONFIG_3D_SLIDERSTATE != 0) {
+				if (i==1) sf2d_swapbuffers();
+			} else {
+				if (i!=1) sf2d_swapbuffers();
+			}
 		}
 		sf2d_start_frame(GFX_BOTTOM, GFX_LEFT);
 		sf2d_draw_texture(logotex, 320/2 - logotex->width/2, 240/2 - logotex->height/2);
@@ -259,11 +261,6 @@ int main()
 			}
 		}
 		
-		if (hDown & KEY_R) {
-			if(looptime==2) looptime = 4;
-			else looptime = 2;
-		}
-		
 		if (hDown & KEY_LEFT) {
 			imageloaded = false;
 			imagenum--;
@@ -272,6 +269,17 @@ int main()
 			imageloaded = false;
 			imagenum++;
 			if (imagenum > 28) imagenum = 0;
+		}
+		if (hDown & KEY_UP) {
+			imageloaded = false;
+			if (logonum == 0) imagenum = 15;
+			if (logonum == 1) imagenum = 0;
+			if (logonum == 2) imagenum = 8;
+		} else if (hDown & KEY_DOWN) {
+			imageloaded = false;
+			if (logonum == 0) imagenum = 8;
+			if (logonum == 1) imagenum = 15;
+			if (logonum == 2) imagenum = 0;
 		}
 	}
 
