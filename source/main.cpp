@@ -7,7 +7,8 @@
 #include <malloc.h>
 #include <sys/stat.h>
 
-#include "citrostuff.h"
+#include "graphic.h"
+#include "pp2d/pp2d/pp2d.h"
 
 #define CONFIG_3D_SLIDERSTATE (*(float *)0x1FF81080)
 
@@ -25,14 +26,6 @@ void screenon()
     gspLcdExit();
 }
 
-sf2d_texture *rectangletex;
-
-// New draw rectangle function for use alongside citro.
-void drawRectangle(int x, int y, int scaleX, int scaleY, u32 color)
-{
-	sf2d_draw_texture_scale_blend(rectangletex, x, y, scaleX, scaleY, color);
-}
-
 int main()
 {
 	aptInit();
@@ -42,29 +35,20 @@ int main()
 	srvInit();
 	hidInit();
 
-	sf2d_init();
-    sf2d_set_clear_color(RGBA8(0x00, 0x00, 0x00, 0x00));
-	sf2d_set_3D(1);
+	pp2d_init();
 	
-	C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
-
-	printf("System font example\n");
-	Result res = fontEnsureMapped();
-
-	if (R_FAILED(res))
-		printf("fontEnsureMapped: %08lX\n", res);
-
-	sceneInit();
+	pp2d_set_screen_color(GFX_TOP, TRANSPARENT);
+	pp2d_set_3D(0);
+	
+	Result res = 0;
 
 	const char* imagetexpath;
 	
-	rectangletex = sfil_load_PNG_file("romfs:/graphics/misc/rectangle.png", SF2D_PLACE_RAM); // Rectangle
-	sf2d_texture *homeicontex = sfil_load_PNG_file("romfs:/graphics/misc/whomeicon.png", SF2D_PLACE_RAM);
-	sf2d_texture *imagetex = NULL;
-	sf2d_texture *logotex = NULL;
-	sf2d_texture *logo0tex = sfil_load_PNG_file("romfs:/graphics/logos/SSFF.png", SF2D_PLACE_RAM);
-	sf2d_texture *logo1tex = sfil_load_PNG_file("romfs:/graphics/logos/SMG.png", SF2D_PLACE_RAM);
-	sf2d_texture *logo2tex = sfil_load_PNG_file("romfs:/graphics/logos/SSB4-WiiU.png", SF2D_PLACE_RAM);
+	pp2d_load_texture_png(homeicontex, "romfs:/graphics/misc/whomeicon.png");
+	pp2d_load_texture_png(logo0tex, "romfs:/graphics/logos/BotW.png");
+	pp2d_load_texture_png(logo1tex, "romfs:/graphics/logos/SSFF.png");
+	pp2d_load_texture_png(logo2tex, "romfs:/graphics/logos/SMG.png");
+	pp2d_load_texture_png(logo3tex, "romfs:/graphics/logos/SSB4-WiiU.png");
 	
 	int fadealpha = 255;
 	bool fadein = true;
@@ -80,136 +64,171 @@ int main()
 		
 		const u32 hDown = hidKeysDown();
 		const u32 hHeld = hidKeysHeld();
-		
-		textVtxArrayPos = 0; // Clear the text vertex array
 
 		if(!imageloaded) {
 			switch(imagenum) {
 				case 0:
 				default:
 					logonum = 0;
-					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Sophie.png";
+					imagetexpath = "romfs:/graphics/Legend of Zelda - Breath of the Wild/promotional art.png";
 					break;
 				case 1:
 					logonum = 0;
-					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Rabz using phone.png";
+					imagetexpath = "romfs:/graphics/Legend of Zelda - Breath of the Wild/Screen12.png";
 					break;
 				case 2:
 					logonum = 0;
-					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Renee and Callie.png";
+					imagetexpath = "romfs:/graphics/Legend of Zelda - Breath of the Wild/Screen15.png";
 					break;
 				case 3:
 					logonum = 0;
-					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Robz and Aisling.png";
+					imagetexpath = "romfs:/graphics/Legend of Zelda - Breath of the Wild/Screen16.png";
 					break;
 				case 4:
 					logonum = 0;
-					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Eunice and Clara.png";
+					imagetexpath = "romfs:/graphics/Legend of Zelda - Breath of the Wild/Screen17.png";
 					break;
 				case 5:
 					logonum = 0;
-					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Zoey, Clara, and Robz.png";
+					imagetexpath = "romfs:/graphics/Legend of Zelda - Breath of the Wild/Screen18.png";
 					break;
 				case 6:
 					logonum = 0;
-					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Robz waves.png";
+					imagetexpath = "romfs:/graphics/Legend of Zelda - Breath of the Wild/Screen19.png";
 					break;
 				case 7:
 					logonum = 0;
-					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Wish Abigail luck!.png";
+					imagetexpath = "romfs:/graphics/Legend of Zelda - Breath of the Wild/Screen20.png";
 					break;
 				case 8:
-					logonum = 1;
-					imagetexpath = "romfs:/graphics/Super Mario Galaxy/PromoGalaxy.png";
+					logonum = 0;
+					imagetexpath = "romfs:/graphics/Legend of Zelda - Breath of the Wild/Screen21.png";
 					break;
 				case 9:
-					logonum = 1;
-					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Title_Screen.png";
+					logonum = 0;
+					imagetexpath = "romfs:/graphics/Legend of Zelda - Breath of the Wild/Screen23.png";
 					break;
 				case 10:
 					logonum = 1;
-					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Bowser.png";
+					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Sophie.png";
 					break;
 				case 11:
 					logonum = 1;
-					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Mario_looking_at_Luma.png";
+					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Rabz using phone.png";
 					break;
 				case 12:
 					logonum = 1;
-					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Luigi_looking_at_Luma.png";
+					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Renee and Callie.png";
 					break;
 				case 13:
 					logonum = 1;
-					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Rosalina.png";
+					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Robz and Aisling.png";
 					break;
 				case 14:
 					logonum = 1;
-					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Bowser_Jr.'s_Airship.png";
+					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Eunice and Clara.png";
 					break;
 				case 15:
-					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario1.png";
+					logonum = 1;
+					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Zoey, Clara, and Robz.png";
 					break;
 				case 16:
-					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario2.png";
+					logonum = 1;
+					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Robz waves.png";
 					break;
 				case 17:
-					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario3.png";
+					logonum = 1;
+					imagetexpath = "romfs:/graphics/Style Savvy - Fashion Forward/Wish Abigail luck!.png";
 					break;
 				case 18:
 					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario4.png";
+					imagetexpath = "romfs:/graphics/Super Mario Galaxy/PromoGalaxy.png";
 					break;
 				case 19:
 					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario5.png";
+					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Title_Screen.png";
 					break;
 				case 20:
 					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario6.png";
+					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Bowser.png";
 					break;
 				case 21:
 					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta1.png";
+					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Mario_looking_at_Luma.png";
 					break;
 				case 22:
 					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta2.png";
+					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Luigi_looking_at_Luma.png";
 					break;
 				case 23:
 					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta3.png";
+					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Rosalina.png";
 					break;
 				case 24:
 					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta4.png";
+					imagetexpath = "romfs:/graphics/Super Mario Galaxy/Bowser_Jr.'s_Airship.png";
 					break;
 				case 25:
-					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta5.png";
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario1.png";
 					break;
 				case 26:
-					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta6.png";
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario2.png";
 					break;
 				case 27:
-					logonum = 2;
-					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta7.png";
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario3.png";
 					break;
 				case 28:
-					logonum = 2;
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario4.png";
+					break;
+				case 29:
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario5.png";
+					break;
+				case 30:
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/mario6.png";
+					break;
+				case 31:
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta1.png";
+					break;
+				case 32:
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta2.png";
+					break;
+				case 33:
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta3.png";
+					break;
+				case 34:
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta4.png";
+					break;
+				case 35:
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta5.png";
+					break;
+				case 36:
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta6.png";
+					break;
+				case 37:
+					logonum = 3;
+					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta7.png";
+					break;
+				case 38:
+					logonum = 3;
 					imagetexpath = "romfs:/graphics/Super Smash Bros for Wii U/bayonetta8.png";
 					break;
 			}
-			sf2d_start_frame(GFX_TOP, GFX_LEFT);
-			sf2d_end_frame();
-			sf2d_start_frame(GFX_TOP, GFX_RIGHT);
-			sf2d_end_frame();
-			sf2d_swapbuffers();
-			sf2d_free_texture(imagetex);
-			imagetex = sfil_load_PNG_file(imagetexpath, SF2D_PLACE_RAM);
+			//pp2d_begin_draw(GFX_TOP);
+			//pp2d_end_draw();
+			pp2d_free_texture(imagetex);
+			pp2d_load_texture_png(imagetex, imagetexpath);
 			switch(logonum) {
 				case 0:
 				default:
@@ -221,37 +240,37 @@ int main()
 				case 2:
 					logotex = logo2tex;
 					break;
+				case 3:
+					logotex = logo3tex;
+					break;
 			}
 			imageloaded = true;
 		}
 		
 		for (int i = 0; i < 2; i++) {
-			if (CONFIG_3D_SLIDERSTATE != 0) {
-				sf2d_start_frame(GFX_TOP, i);
-			} else {
-				sf2d_start_frame(GFX_TOP, GFX_LEFT);
-			}
+			//if (CONFIG_3D_SLIDERSTATE != 0) {
+			//	sf2d_start_frame(GFX_TOP, i);
+			//} else {
+			//	sf2d_start_frame(GFX_TOP, GFX_LEFT);
+			//}
+			pp2d_begin_draw(GFX_TOP);
 			for (int w = 0; w < 400; w++) {
-				sf2d_draw_texture_part(imagetex, w, 0, i+w*2, 0, 1, 240);
+				pp2d_draw_texture_part(imagetex, w, 0, i+w*2, 0, 1, 240);
 			}
-			drawRectangle(0, 0, 400, 240, RGBA8(0, 0, 0, fadealpha)); // Fade in/out effect
-			sf2d_end_frame();
+			pp2d_end_draw();
 			if (CONFIG_3D_SLIDERSTATE != 0) {
-				if (i==1) sf2d_swapbuffers();
+				//if (i==1) sf2d_swapbuffers();
 			} else {
-				if (i!=1) sf2d_swapbuffers();
+				//if (i!=1) sf2d_swapbuffers();
 			}
 		}
-		sf2d_start_frame(GFX_BOTTOM, GFX_LEFT);
-		sf2d_draw_texture(logotex, 320/2 - logotex->width/2, 240/2 - logotex->height/2);
+		pp2d_begin_draw(GFX_BOTTOM);
+		pp2d_draw_texture(logotex, 0, 0);
 		const int home_width = 144+16;
 		const int home_x = (320-home_width)/2;
-		sf2d_draw_texture(homeicontex, home_x, 221); // Draw HOME icon
-		setTextColor(RGBA8(255, 255, 255, 255));
-		renderText(home_x+20, 222, 0.50, 0.50, false, ": Return to HOME Menu");
-		drawRectangle(0, 0, 320, 240, RGBA8(0, 0, 0, fadealpha)); // Fade in/out effect
-		sf2d_end_frame();
-		sf2d_swapbuffers();
+		pp2d_draw_texture(homeicontex, home_x, 221); // Draw HOME icon
+		pp2d_draw_text(home_x+20, 222, 0.50, 0.50, WHITE, ": Return to HOME Menu");
+		pp2d_end_draw();
 		
 		if (fadein == true) {
 			fadealpha -= 31;
@@ -264,39 +283,35 @@ int main()
 		if (hDown & KEY_LEFT) {
 			imageloaded = false;
 			imagenum--;
-			if (imagenum < 0) imagenum = 28;
+			if (imagenum < 0) imagenum = 38;
 		} else if (hDown & KEY_RIGHT) {
 			imageloaded = false;
 			imagenum++;
-			if (imagenum > 28) imagenum = 0;
+			if (imagenum > 38) imagenum = 0;
 		}
 		if (hDown & KEY_UP) {
 			imageloaded = false;
-			if (logonum == 0) imagenum = 15;
+			if (logonum == 0) imagenum = 25;
 			if (logonum == 1) imagenum = 0;
-			if (logonum == 2) imagenum = 8;
+			if (logonum == 2) imagenum = 10;
+			if (logonum == 3) imagenum = 18;
 		} else if (hDown & KEY_DOWN) {
 			imageloaded = false;
-			if (logonum == 0) imagenum = 8;
-			if (logonum == 1) imagenum = 15;
-			if (logonum == 2) imagenum = 0;
+			if (logonum == 0) imagenum = 10;
+			if (logonum == 1) imagenum = 18;
+			if (logonum == 2) imagenum = 25;
+			if (logonum == 3) imagenum = 0;
 		}
 	}
 
 	
-	sceneExit();
-	C3D_Fini();
+	pp2d_exit();
 
 	hidExit();
 	srvExit();
 	romfsExit();
 	sdmcExit();
 	aptExit();
-	sf2d_free_texture(imagetex);
-	sf2d_free_texture(logo0tex);
-	sf2d_free_texture(logo1tex);
-	sf2d_free_texture(logo2tex);
-    sf2d_fini();
 
     return 0;
 }

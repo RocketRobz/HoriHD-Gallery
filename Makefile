@@ -36,7 +36,7 @@ VERSION_MICRO := 0
 #---------------------------------------------------------------------------------
 TARGET		:=	480i-test
 BUILD		:=	build
-SOURCES		:=	source
+SOURCES		:=	source source/pp2d/pp2d
 DATA		:=	data
 INCLUDES	:=	include
 ROMFS		:=	romfs
@@ -63,13 +63,13 @@ CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -fpermissive -std=c++11 -std=gnu
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:= -lsfil -lpng -lz -lsf2d -lcitro3d -lctru -lm -lstdc++
+LIBS	:= -lcitro3d -lctru -lm -lstdc++
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(CTRULIB) $(PORTLIBS) $(DEVKITPRO)/citrus
+LIBDIRS	:= $(CTRULIB) $(PORTLIBS)
 
 
 #---------------------------------------------------------------------------------
