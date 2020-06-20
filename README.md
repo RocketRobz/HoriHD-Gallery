@@ -1,5 +1,8 @@
 <p align="center">
  <img src="https://github.com/RocketRobz/HoriHD-Gallery/blob/master/app/banner.png"><br>
+  <a href="https://gbatemp.net/threads/hori-hd-image-gallery-demonstration-of-the-800px-wide-mode.567936/">
+   <img src="https://img.shields.io/badge/GBATemp-Thread-blue.svg">
+  </a>
 </p>
 A demonstration of the 800px mode on 3DS consoles. Will not work on O2DS consoles.
 
