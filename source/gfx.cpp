@@ -93,48 +93,78 @@ Result GFX::loadGameShot() {
 			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMG_Rosalina.t3x");
 			break;
 		case 24:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMG_Airship.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_NDCFestival.t3x");
 			break;
 		case 25:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario1.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_NewDonkCity.t3x");
 			break;
 		case 26:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario2.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_Odyssey.t3x");
 			break;
 		case 27:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario3.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_Cappy.t3x");
 			break;
 		case 28:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario4.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_CappyThrow.t3x");
 			break;
 		case 29:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario5.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_TRex.t3x");
 			break;
 		case 30:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario6.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_ForestBoombox.t3x");
 			break;
 		case 31:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta1.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_CrazyCap.t3x");
 			break;
 		case 32:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta2.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_BowserPeach.t3x");
 			break;
 		case 33:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta3.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_Peach.t3x");
 			break;
 		case 34:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta4.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario1.t3x");
 			break;
 		case 35:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta5.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario1.t3x");
 			break;
 		case 36:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta6.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario2.t3x");
 			break;
 		case 37:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta7.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario3.t3x");
 			break;
 		case 38:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario4.t3x");
+			break;
+		case 39:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario5.t3x");
+			break;
+		case 40:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario6.t3x");
+			break;
+		case 41:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta1.t3x");
+			break;
+		case 42:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta2.t3x");
+			break;
+		case 43:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta3.t3x");
+			break;
+		case 44:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta4.t3x");
+			break;
+		case 45:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta5.t3x");
+			break;
+		case 46:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta6.t3x");
+			break;
+		case 47:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta7.t3x");
+			break;
+		case 48:
 			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_bayonetta8.t3x");
 			break;
 	}

@@ -24,9 +24,11 @@ void ImageDisplay::Draw(void) const {
 		} else {
 			GFX::DrawSprite(sprites_logo_GM3_idx, 0, 0);
 		}
-	} else 	if (imagenum >= 18 && imagenum <= 24) {
+	} else 	if (imagenum >= 18 && imagenum <= 23) {
 		GFX::DrawSprite(sprites_logo_SMG_idx, 0, 0);
-	} else 	if (imagenum >= 25 && imagenum <= 38) {
+	} else 	if (imagenum >= 24 && imagenum <= 33) {
+		GFX::DrawSprite(sprites_logo_SMO_idx, 0, 0);
+	} else 	if (imagenum >= 34 && imagenum <= 48) {
 		GFX::DrawSprite(sprites_logo_SSB4_WiiU_idx, 0, 0);
 	}
 
@@ -50,16 +52,18 @@ void ImageDisplay::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
 		GFX::loadGameShot();
 	}
 	if (hDown & KEY_UP) {
-		      if (imagenum >= 0 && imagenum <= 9) imagenum = 25;
+		      if (imagenum >= 0 && imagenum <= 9) imagenum = 34;
 		else if (imagenum >= 10 && imagenum <= 17) imagenum = 0;
-		else if (imagenum >= 18 && imagenum <= 24) imagenum = 10;
-		else if (imagenum >= 25 && imagenum <= 38) imagenum = 18;
+		else if (imagenum >= 18 && imagenum <= 23) imagenum = 10;
+		else if (imagenum >= 24 && imagenum <= 33) imagenum = 18;
+		else if (imagenum >= 34 && imagenum <= 48) imagenum = 24;
 		GFX::loadGameShot();
 	} else if (hDown & KEY_DOWN) {
 		      if (imagenum >= 0 && imagenum <= 9) imagenum = 10;
 		else if (imagenum >= 10 && imagenum <= 17) imagenum = 18;
-		else if (imagenum >= 18 && imagenum <= 24) imagenum = 25;
-		else if (imagenum >= 25 && imagenum <= 38) imagenum = 0;
+		else if (imagenum >= 18 && imagenum <= 23) imagenum = 24;
+		else if (imagenum >= 24 && imagenum <= 33) imagenum = 34;
+		else if (imagenum >= 34 && imagenum <= 48) imagenum = 0;
 		GFX::loadGameShot();
 	}
 

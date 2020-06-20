@@ -8,6 +8,7 @@ A demonstration of the 800px mode on 3DS consoles. Will not work on O2DS console
 - The Legend of Zelda: Breath of the Wild (Wii U/Switch)
 - Style Savvy: Fashion Forward (3DS)
 - Super Mario Galaxy (Wii)
+- Super Mario Odyssey (Switch)
 - Super Smash Bros. for Wii U
 
 # Building
