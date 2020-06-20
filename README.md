@@ -1,5 +1,6 @@
-# Hori-HD Image Gallery
-
+<p align="center">
+ <img src="https://github.com/RocketRobz/HoriHD-Gallery/blob/master/app/banner.png"><br>
+</p>
 A demonstration of the 800px mode on 3DS consoles. Will not work on O2DS consoles.
 
 # Images included from the following games:
