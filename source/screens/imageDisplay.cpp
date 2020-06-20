@@ -48,11 +48,11 @@ void ImageDisplay::Draw(void) const {
 void ImageDisplay::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
 	if (hDown & KEY_LEFT) {
 		imagenum--;
-		if (imagenum < 0) imagenum = 38;
+		if (imagenum < 0) imagenum = 48;
 		GFX::loadGameShot();
 	} else if (hDown & KEY_RIGHT) {
 		imagenum++;
-		if (imagenum > 38) imagenum = 0;
+		if (imagenum > 48) imagenum = 0;
 		GFX::loadGameShot();
 	}
 	if (hDown & KEY_UP) {
