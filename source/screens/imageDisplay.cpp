@@ -1,5 +1,7 @@
 #include "imageDisplay.hpp"
 
+extern u8 sysRegion;
+
 void ImageDisplay::Draw(void) const {
 	Gui::ScreenDraw(Top);
 
@@ -12,7 +14,13 @@ void ImageDisplay::Draw(void) const {
 	if (imagenum >= 0 && imagenum <= 9) {
 		GFX::DrawSprite(sprites_logo_BotW_idx, 0, 0);
 	} else 	if (imagenum >= 10 && imagenum <= 17) {
-		GFX::DrawSprite(sprites_logo_SSFF_idx, 0, 0);
+		if (sysRegion == CFG_REGION_USA) {
+			GFX::DrawSprite(sprites_logo_SSFF_idx, 0, 0);
+		} else if (sysRegion == CFG_REGION_EUR) {
+			GFX::DrawSprite(sprites_logo_NSB2_idx, 0, 0);
+		} else {
+			GFX::DrawSprite(sprites_logo_GM3_idx, 0, 0);
+		}
 	} else 	if (imagenum >= 18 && imagenum <= 24) {
 		GFX::DrawSprite(sprites_logo_SMG_idx, 0, 0);
 	} else 	if (imagenum >= 25 && imagenum <= 38) {
