@@ -1,0 +1,54 @@
+#include "imageDisplay.hpp"
+
+void ImageDisplay::Draw(void) const {
+	Gui::ScreenDraw(Top);
+
+	GFX::DrawGameShot();
+
+	if (fadealpha > 0) Gui::Draw_Rect(0, 0, 400, 240, C2D_Color32(fadecolor, fadecolor, fadecolor, fadealpha)); // Fade in/out effect
+
+	Gui::ScreenDraw(Bottom);
+
+	if (imagenum >= 0 && imagenum <= 9) {
+		GFX::DrawSprite(sprites_logo_BotW_idx, 0, 0);
+	} else 	if (imagenum >= 10 && imagenum <= 17) {
+		GFX::DrawSprite(sprites_logo_SSFF_idx, 0, 0);
+	} else 	if (imagenum >= 18 && imagenum <= 24) {
+		GFX::DrawSprite(sprites_logo_SMG_idx, 0, 0);
+	} else 	if (imagenum >= 25 && imagenum <= 38) {
+		GFX::DrawSprite(sprites_logo_SSB4_WiiU_idx, 0, 0);
+	}
+
+	//pp2d_draw_texture(logotex, 0, 0);
+	const int home_width = 144+16;
+	const int home_x = (320-home_width)/2;
+	GFX::DrawSprite(sprites_whomeicon_idx, home_x, 219);
+	Gui::DrawString(home_x+16, 219, 0.50, WHITE, this->returnToHomeText); // Draw HOME icon
+	if (fadealpha > 0) Gui::Draw_Rect(0, 0, 320, 240, C2D_Color32(fadecolor, fadecolor, fadecolor, fadealpha)); // Fade in/out effect
+	
+}
+
+void ImageDisplay::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
+	if (hDown & KEY_LEFT) {
+		imagenum--;
+		if (imagenum < 0) imagenum = 38;
+		GFX::loadGameShot();
+	} else if (hDown & KEY_RIGHT) {
+		imagenum++;
+		if (imagenum > 38) imagenum = 0;
+		GFX::loadGameShot();
+	}
+	if (hDown & KEY_UP) {
+		      if (imagenum >= 0 && imagenum <= 9) imagenum = 25;
+		else if (imagenum >= 10 && imagenum <= 17) imagenum = 0;
+		else if (imagenum >= 18 && imagenum <= 24) imagenum = 10;
+		else if (imagenum >= 25 && imagenum <= 38) imagenum = 18;
+		GFX::loadGameShot();
+	} else if (hDown & KEY_DOWN) {
+		      if (imagenum >= 0 && imagenum <= 9) imagenum = 10;
+		else if (imagenum >= 10 && imagenum <= 17) imagenum = 18;
+		else if (imagenum >= 18 && imagenum <= 24) imagenum = 25;
+		else if (imagenum >= 25 && imagenum <= 38) imagenum = 0;
+		GFX::loadGameShot();
+	}
+}

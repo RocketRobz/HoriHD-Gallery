@@ -1,14 +1,14 @@
-# 800hi Image Gallery for 3DS
-NOTE: hi stands for horizontal interlacing.
+# Hori-HD Image Gallery
 
-[Inspiration for my idea.](http://gizmodo.com/5914718/researchers-turn-low-res-screens-into-retina-displays-by-simply-vibrating-them)
+A demonstration of the 800px mode on 3DS consoles. Will not work on O2DS consoles.
 
 # Images included from the following games:
 
+- The Legend of Zelda: Breath of the Wild (Wii U/Switch)
 - Style Savvy: Fashion Forward (3DS)
 - Super Mario Galaxy (Wii)
 - Super Smash Bros. for Wii U
 
 # Building
 
-To build this app, you'll need devkitARM with devkitPRO. You will also need xerpi's [sfillib](https://github.com/xerpi/sfillib),[sf2dlib](https://github.com/xerpi/sf2dlib), and [citro3ds](https://github.com/fincs/citro3d). You also need makerom on your devkitPRO environment.
+To build this app, you'll need devkitARM with devkitPRO. You will also need [citro3d](https://github.com/fincs/citro3d) and [citro2d](https://github.com/fincs/citro2d). You also need makerom on your devkitPRO environment.
