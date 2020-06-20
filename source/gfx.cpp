@@ -123,7 +123,7 @@ Result GFX::loadGameShot() {
 			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_Peach.t3x");
 			break;
 		case 34:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario1.t3x");
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_BoxArt.t3x");
 			break;
 		case 35:
 			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SSB4-WiiU_mario1.t3x");
