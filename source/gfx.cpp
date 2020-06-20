@@ -78,19 +78,19 @@ Result GFX::loadGameShot() {
 			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMG_PromoGalaxy.t3x");
 			break;
 		case 19:
-			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMG_TitleScreen.t3x");
-			break;
-		case 20:
 			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMG_Bowser.t3x");
 			break;
-		case 21:
+		case 20:
 			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMG_MarioLuma.t3x");
 			break;
-		case 22:
+		case 21:
 			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMG_LuigiLuma.t3x");
 			break;
-		case 23:
+		case 22:
 			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMG_Rosalina.t3x");
+			break;
+		case 23:
+			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMG_DinoPiranha.t3x");
 			break;
 		case 24:
 			gameShot = C2D_SpriteSheetLoad("romfs:/gfx/SMO_NDCFestival.t3x");
