@@ -1,7 +1,7 @@
 BasicInfo:
-  Title                   : "480i"
-  ProductCode             : "CTR-H-480i"
-  Logo                    : Nintendo # Nintendo / Licensed / Distributed / iQue / iQueForSystem
+  Title                   : "Hori-HD"
+  ProductCode             : "CTR-H-HORI"
+  Logo                    : Homebrew # Nintendo / Licensed / Distributed / iQue / iQueForSystem
 
 RomFs:
   RootPath: "../romfs"
