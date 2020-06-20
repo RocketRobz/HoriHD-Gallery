@@ -4,6 +4,7 @@
 extern bool exiting;
 
 extern u8 sysRegion;
+extern u64 appID;
 
 void ImageDisplay::Draw(void) const {
 	Gui::ScreenDraw(Top);
@@ -32,11 +33,14 @@ void ImageDisplay::Draw(void) const {
 		GFX::DrawSprite(sprites_logo_SSB4_WiiU_idx, 0, 0);
 	}
 
-	//pp2d_draw_texture(logotex, 0, 0);
-	const int home_width = 144+16;
-	const int home_x = (320-home_width)/2;
-	GFX::DrawSprite(sprites_whomeicon_idx, home_x, 219);
-	Gui::DrawString(home_x+16, 219, 0.50, WHITE, this->returnToHomeText); // Draw HOME icon
+	if (appID == 0x4809E00) {
+		const int home_width = 144+16;
+		const int home_x = (320-home_width)/2;
+		GFX::DrawSprite(sprites_whomeicon_idx, home_x, 219);
+		Gui::DrawString(home_x+16, 219, 0.50, WHITE, this->returnToHomeText); // Draw HOME icon
+	} else {
+		Gui::DrawStringCentered(0, 219, 0.50, WHITE, this->startExitText);
+	}
 	if (fadealpha > 0) Gui::Draw_Rect(0, 0, 320, 240, C2D_Color32(fadecolor, fadecolor, fadecolor, fadealpha)); // Fade in/out effect
 	
 }

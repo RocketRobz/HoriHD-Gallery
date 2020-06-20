@@ -11,6 +11,7 @@ int delay = 0;
 bool exiting = false;
 
 u8 sysRegion = CFG_REGION_USA;
+u64 appID = 0;
 
 u32 hDown = 0;
 u32 hHeld = 0;
@@ -44,6 +45,10 @@ int main()
 		CFGU_GetSystemModel(&consoleModel);
 		cfguExit();
 	}
+
+	aptInit();
+	APT_GetProgramID(&appID);
+	aptExit();
 
 	gfxInitDefault();
 	gfxSetWide(consoleModel != 3);	// Enable 800x240 mode for non-O2DS consoles. Improves clarity in graphics.
