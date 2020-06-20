@@ -33,7 +33,7 @@ void ImageDisplay::Draw(void) const {
 		GFX::DrawSprite(sprites_logo_SSB4_WiiU_idx, 0, 0);
 	}
 
-	if (appID == 0x4809E00) {
+	if ((u32)appID == 0x4809E00) {
 		const int home_width = 144+16;
 		const int home_x = (320-home_width)/2;
 		GFX::DrawSprite(sprites_whomeicon_idx, home_x, 219);
