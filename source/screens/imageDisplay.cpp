@@ -20,7 +20,7 @@ void ImageDisplay::Draw(void) const {
 	} else 	if (imagenum >= 10 && imagenum <= 17) {
 		if (sysRegion == CFG_REGION_USA) {
 			GFX::DrawSprite(sprites_logo_SSFF_idx, 0, 0);
-		} else if (sysRegion == CFG_REGION_EUR) {
+		} else if (sysRegion == CFG_REGION_EUR || sysRegion == CFG_REGION_AUS) {
 			GFX::DrawSprite(sprites_logo_NSB2_idx, 0, 0);
 		} else {
 			GFX::DrawSprite(sprites_logo_GM3_idx, 0, 0);
