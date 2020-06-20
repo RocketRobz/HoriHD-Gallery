@@ -3,7 +3,12 @@
 #include <3ds.h>
 
 #include "common.hpp"
+#include "rocketRobz.hpp"
 #include "imageDisplay.hpp"
+
+bool isInit = true;
+int delay = 0;
+bool exiting = false;
 
 u8 sysRegion = CFG_REGION_USA;
 
@@ -50,7 +55,7 @@ int main()
 	
 	screenon();
 
-	Gui::setScreen(std::make_unique<ImageDisplay>(), false); // Set screen to RocketRobz's screen.
+	Gui::setScreen(std::make_unique<RocketRobz>(), false); // Set screen to RocketRobz's screen.
 
 	// Loop as long as the status is not exit
 	while(aptMainLoop()) {
@@ -69,6 +74,17 @@ int main()
 		Gui::clearTextBufs();
 		Gui::DrawScreen();
 		C3D_FrameEnd(0);
+		if (exiting) {
+			if (!fadeout)	break;
+		}
+
+		if (isInit) {
+			delay++;
+			if (delay > 60*(gfxIsWide() ? 7 : 4)) {
+				Gui::setScreen(std::make_unique<ImageDisplay>(), true); // Set after delay to the ImageDisplay screen.
+				isInit = false;
+			}
+		}
 
 		Gui::ScreenLogic(hDown, hHeld, touch, false); // Call the logic of the current screen here.
 

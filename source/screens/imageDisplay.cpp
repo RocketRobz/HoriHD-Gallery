@@ -1,4 +1,7 @@
 #include "imageDisplay.hpp"
+#include "exiting.hpp"
+
+extern bool exiting;
 
 extern u8 sysRegion;
 
@@ -58,5 +61,11 @@ void ImageDisplay::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
 		else if (imagenum >= 18 && imagenum <= 24) imagenum = 25;
 		else if (imagenum >= 25 && imagenum <= 38) imagenum = 0;
 		GFX::loadGameShot();
+	}
+
+	if (hDown & KEY_START) {
+		exiting = true;
+		fadecolor = 0;
+		Gui::setScreen(std::make_unique<Exiting>(), true);
 	}
 }
