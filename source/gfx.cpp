@@ -6,6 +6,8 @@ static C2D_SpriteSheet sprites;
 static C2D_SpriteSheet gameShot;
 static bool doGameShotFree = false;
 
+extern u8 consoleModel;
+
 int imagenum = 0;
 
 Result GFX::loadSheets() {
@@ -181,7 +183,12 @@ Result GFX::unloadSheets() {
 }
 
 void GFX::DrawGameShot(void) {
-	C2D_DrawImageAt(C2D_SpriteSheetGetImage(gameShot, 0), 0, 0, 0.5f, NULL, 0.5, 1);
+	C2D_Image image = C2D_SpriteSheetGetImage(gameShot, 0);
+	if (!gfxIsWide()) {
+		C3D_TexSetFilter(image.tex, GPU_LINEAR, GPU_LINEAR);
+	}
+
+	C2D_DrawImageAt(image, 0, 0, 0.5f, NULL, ((!gfxIsWide() && consoleModel != 3) ? 0.25 : 0.5), 1);
 }
 
 void GFX::DrawSprite(int img, int x, int y, float ScaleX, float ScaleY) {

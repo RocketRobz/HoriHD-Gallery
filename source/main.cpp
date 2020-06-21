@@ -10,6 +10,7 @@ bool isInit = true;
 int delay = 0;
 bool exiting = false;
 
+u8 consoleModel = 0;
 u8 sysRegion = CFG_REGION_USA;
 u64 appID = 0;
 
@@ -36,8 +37,6 @@ int main()
 	screenoff();
 	amInit();
 	romfsInit();
-
-	u8 consoleModel = 0;
 
 	Result res = cfguInit();
 	if (R_SUCCEEDED(res)) {

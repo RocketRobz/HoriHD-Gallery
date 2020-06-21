@@ -3,6 +3,7 @@
 
 extern bool exiting;
 
+extern u8 consoleModel;
 extern u8 sysRegion;
 extern u64 appID;
 
@@ -31,6 +32,10 @@ void ImageDisplay::Draw(void) const {
 		GFX::DrawSprite(sprites_logo_SMO_idx, 0, 0);
 	} else 	if (imagenum >= 34 && imagenum <= 48) {
 		GFX::DrawSprite(sprites_logo_SSB4_WiiU_idx, 0, 0);
+	}
+
+	if (consoleModel != 3) {
+		Gui::DrawStringCentered(0, 4, 0.50, WHITE, gfxIsWide() ? this->selectView400Text : this->selectView800Text);
 	}
 
 	if ((u32)appID == 0x4809E00) {
@@ -75,5 +80,16 @@ void ImageDisplay::Logic(u32 hDown, u32 hHeld, touchPosition touch) {
 		exiting = true;
 		fadecolor = 0;
 		Gui::setScreen(std::make_unique<Exiting>(), true);
+	}
+
+	if ((hDown & KEY_SELECT) && (consoleModel != 3)) {
+		// Display black screen
+		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
+		C2D_TargetClear(Top, TRANSPARENT);
+		Gui::ScreenDraw(Top);
+		C3D_FrameEnd(0);
+
+		// Toggle 400px/800px mode
+		gfxSetWide(!gfxIsWide());
 	}
 }
