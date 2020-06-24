@@ -20,4 +20,4 @@ To build this app, you'll need devkitARM with devkitPRO. You will also need [cit
 
 # Credits
 * devkitPro: libctru and citro2d/3d
-* StackZ: Universal Core
+* Universal Team: Universal Core
